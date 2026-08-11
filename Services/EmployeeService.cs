@@ -1,27 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace EmployeeApi;
 
 public class EmployeeService : IEmployeeService
 {
-    private List<Employee> _employees;
+    private readonly AppDbContext _context;
 
-    public EmployeeService()
+    public EmployeeService(AppDbContext context)
     {
-        _employees = new List<Employee>
-        {
-            new Employee(1, "Ali", 25, 20000000),
-            new Employee(2, "Sara", 28, 24000000),
-            new Employee(3, "Reza", 22, 22000000)
-        };
+        _context = context;
     }
 
     public async Task<List<Employee>> GetAllAsync()
     {
-        return _employees;
+        return await _context.Employees.ToListAsync();
     }
 
     public async Task<Employee> GetByIdAsync(int id)
     {
-        var employee = _employees.FirstOrDefault(e => e.Id == id);
+        var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Id == id);
         if (employee == null)
         {
             throw new EmployeeNotFoundException($"User with id {id} not found.");
@@ -31,12 +28,18 @@ public class EmployeeService : IEmployeeService
 
     public async Task<Employee> AddAsync(Employee employee)
     {
-        _employees.Add(employee);
+        _context.Employees.Add(employee);
+        await _context.SaveChangesAsync();
         return employee;
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
-        _employees.RemoveAll(e => e.Id == id);
+        var employee = await _context.Employees.FindAsync(id);
+        if (employee != null)
+        {
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
+        }
     }
 }

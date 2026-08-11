@@ -42,9 +42,9 @@ public class EmployeesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        _service.Delete(id);
+        await _service.DeleteAsync(id);
         return NoContent();
     }
 }
