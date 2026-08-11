@@ -1,6 +1,6 @@
 # Employee API
 
-A lightweight RESTful Web API built with **ASP.NET Core**, designed as a hands-on learning project covering core C# and .NET concepts: OOP & inheritance, interfaces, dependency injection, async/await, LINQ, custom exception handling, and database persistence with Entity Framework Core.
+A lightweight RESTful Web API built with **ASP.NET Core**, covering core C# and .NET concepts: OOP, interfaces, dependency injection, async/await, LINQ, custom exceptions, and EF Core persistence.
 
 ## Features
 
@@ -82,17 +82,5 @@ The API will start on a local port shown in the console output (e.g. `http://loc
 | `GET`    | `/api/employees`       | Get all employees               |
 | `GET`    | `/api/employees/{id}`  | Get a single employee by ID     |
 | `POST`   | `/api/employees`       | Create a new employee           |
+| `PUT`    | `/api/employees/{id}`  | Update an existing employee     |
 | `DELETE` | `/api/employees/{id}`  | Delete an employee by ID        |
-
-### Example: Create an employee
-
-```http
-POST /api/employees
-Content-Type: application/json
-
-{
-  "name": "Ali",
-  "age": 25,
-  "salary": 20000000
-}
-```

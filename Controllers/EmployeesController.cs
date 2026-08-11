@@ -41,6 +41,20 @@ public class EmployeesController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = newEmployee.Id }, newEmployee);
     }
 
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Employee>> Update(int id, Employee updatedEmployee)
+    {
+        try
+        {
+            var employee = await _service.UpdateAsync(id, updatedEmployee);
+            return Ok(employee);
+        }
+        catch(EmployeeNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

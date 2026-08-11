@@ -33,6 +33,20 @@ public class EmployeeService : IEmployeeService
         return employee;
     }
 
+    public async Task<Employee> UpdateAsync(int id, Employee updatedEmployee)
+    {
+        var existingEmployee = await _context.Employees.FirstOrDefaultAsync(e => e.Id == id);
+        if (existingEmployee == null)
+        {
+            throw new EmployeeNotFoundException($"User with id {id} not found.");
+        }
+        existingEmployee.Name = updatedEmployee.Name;
+        existingEmployee.Age = updatedEmployee.Age;
+        existingEmployee.Salary = updatedEmployee.Salary;
+        await _context.SaveChangesAsync();
+        return existingEmployee;
+    }
+
     public async Task DeleteAsync(int id)
     {
         var employee = await _context.Employees.FindAsync(id);
