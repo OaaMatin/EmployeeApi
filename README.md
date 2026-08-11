@@ -12,6 +12,7 @@ A lightweight RESTful Web API built with **ASP.NET Core**, covering core C# and 
 - Async service layer using `Task`/`await`
 - Persistent storage with **Entity Framework Core** and **SQLite**
 - Interactive API documentation via OpenAPI
+- Table-Per-Hierarchy (TPH) inheritance mapping for `Manager` and `Developer` subtypes
 
 ## Tech Stack
 
@@ -84,3 +85,5 @@ The API will start on a local port shown in the console output (e.g. `http://loc
 | `POST`   | `/api/employees`       | Create a new employee           |
 | `PUT`    | `/api/employees/{id}`  | Update an existing employee     |
 | `DELETE` | `/api/employees/{id}`  | Delete an employee by ID        |
+| `POST`   | `/api/employees/managers`   | Create a new manager       |
+| `POST`   | `/api/employees/developers` | Create a new developer     |

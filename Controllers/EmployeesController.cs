@@ -41,6 +41,20 @@ public class EmployeesController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = newEmployee.Id }, newEmployee);
     }
 
+    [HttpPost("managers")]
+    public async Task<ActionResult<Manager>> CreateManager(Manager manager)
+    {
+        var newManager = await _service.AddAsync(manager);
+        return CreatedAtAction(nameof(GetById), new {id = newManager.Id }, newManager);
+    }
+
+    [HttpPost("developers")]
+    public async Task<ActionResult<Developer>> CreateDeveloper(Developer developer)
+    {
+        var newDeveloper = await _service.AddAsync(developer);
+        return CreatedAtAction(nameof(GetById), new {id = newDeveloper.Id }, newDeveloper);
+    }
+
     [HttpPut("{id}")]
     public async Task<ActionResult<Employee>> Update(int id, Employee updatedEmployee)
     {

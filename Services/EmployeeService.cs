@@ -33,6 +33,20 @@ public class EmployeeService : IEmployeeService
         return employee;
     }
 
+    public async Task<Manager> AddManagerAsync(Manager manager)
+    {
+        _context.Employees.Add(manager);
+        await _context.SaveChangesAsync();
+        return manager;
+    }
+
+    public async Task<Developer> AddDeveloperAsync(Developer developer)
+    {
+        _context.Employees.Add(developer);
+        await _context.SaveChangesAsync();
+        return developer;
+    }
+
     public async Task<Employee> UpdateAsync(int id, Employee updatedEmployee)
     {
         var existingEmployee = await _context.Employees.FirstOrDefaultAsync(e => e.Id == id);

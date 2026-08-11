@@ -8,4 +8,9 @@ public class AppDbContext : DbContext
     {}
 
     public DbSet<Employee> Employees { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Employee>().HasDiscriminator<string>("EmployeeType").HasValue<Employee>("Employee").HasValue<Manager>("Manager").HasValue<Developer>("Developer");
+    }
 }
